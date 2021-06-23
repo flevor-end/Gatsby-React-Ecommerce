@@ -12,17 +12,17 @@ import {
 import { SEO, Stars } from "./"
 
 export default function ProductDetail({
-  unit_amount,
-  price: id,
+  price,
+  id,
   product: { name, metadata },
 }) {
-  const formatePrice = priceFormat(unit_amount)
+  const formatePrice = priceFormat(price)
   const [size, setSize] = useState(2)
   const [qty, setQty] = useState(1)
   const { addToCart } = useContext(CartContext)
 
   const handleSubmit = () => {
-    addToCart({ unit_amount, id, name, metadata, quantity: qty })
+    addToCart({ price, sku: id, name, metadata, quantity: qty })
   }
   return (
     <StyledProductDetail>
@@ -46,7 +46,7 @@ export default function ProductDetail({
         <p>Cantidad:</p>
         <QtySelect>
           <button onClick={() => (qty > 1 ? setQty(qty - 1) : null)}>-</button>
-          <input type="text" disable value={qty} />
+          <input type="text" disabled value={qty} />
           <button onClick={() => setQty(qty + 1)}>+</button>
         </QtySelect>
         <Button onClick={handleSubmit}>Agregar al carrito</Button>
